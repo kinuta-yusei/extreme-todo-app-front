@@ -1,5 +1,14 @@
 <template>
   <div class="min-h-screen bg-gray-100 p-6">
+    <!-- Navigation -->
+    <PageNavigation 
+      :project-name="'Table'" 
+      :active-tab="'Table'" 
+      :tabs="['Table', 'Kanban', 'Diagram']"
+      @update:active-tab="activeTab = $event"
+    />
+    <router-view></router-view>
+
     <div class="flex gap-6">
       <!-- Filter Panel -->
       <div class="w-72 bg-white rounded-lg shadow p-6 space-y-6">
@@ -137,6 +146,7 @@
 </template>
 
 <script setup>
+import PageNavigation from './navigation/Navigation.vue'
 import { ref } from 'vue'
 import { SearchIcon, PlusIcon, ArrowsUpDownIcon } from 'lucide-vue-next'
 
