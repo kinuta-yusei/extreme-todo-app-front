@@ -3,5 +3,4 @@
 </template>
 
 <script setup>
-// import TodoList from './components/todoList/KanbanBoard.vue'
 </script>
