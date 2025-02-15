@@ -2,7 +2,7 @@
   <div class="min-h-screen bg-gray-100 p-6">
     <!-- Navigation -->
     <PageNavigation 
-      :project-name="'kanban board'" 
+      :project-name="'Table'" 
       :active-tab="'Table'" 
       :tabs="['Table', 'Kanban', 'Diagram']"
       @update:active-tab="activeTab = $event"

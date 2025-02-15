@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import TableView from '@/components/todoList/tableView.vue'
+import TableView from '@/components/todoList/TableView.vue'
 import KanbanBoard from '@/components/todoList/KanbanBoard.vue'
 import DiagramView from '@/components/todoList/DiagramView.vue'
 
