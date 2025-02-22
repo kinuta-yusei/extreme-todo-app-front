@@ -2,6 +2,7 @@ name: Code Policy
 
 on: 
   pull_request:
+    types: [opened, reopened, synchronize, auto_merge_enabled]
 
 jobs: 
   lint:
