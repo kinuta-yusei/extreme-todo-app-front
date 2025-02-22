@@ -1,27 +1,27 @@
 <template>
   <div class="min-h-screen bg-gray-50 p-6">
     <!-- Navigation -->
-    <PageNavigation 
-      :project-name="'Kanban Board'" 
+    <PageNavigation
+      :project-name="'Kanban Board'"
       :active-tab="'Kanban'"
       :tabs="['Table', 'Kanban', 'Diagram']"
       @update:active-tab="activeTab = $event"
     />
 
     <!-- Filters -->
-    <TaskFilters 
-      :executor-options="executorOptions" 
-      :default-executor="selectedExecutor" 
-      :group-options="groupOptions" 
-      :default-group="selectedGroup" 
-      :priority-options="priorityOptions" 
+    <TaskFilters
+      :executor-options="executorOptions"
+      :default-executor="selectedExecutor"
+      :group-options="groupOptions"
+      :default-group="selectedGroup"
+      :priority-options="priorityOptions"
       :default-priority="selectedPriority"
       :isStatusNeeded="false"
       :default-status="todo"
       :isScheduleNeeded="true"
-      @updateExecutor="updateExecutor" 
-      @updateGroup="updateGroup" 
-      @updatePriority="updatePriority" 
+      @updateExecutor="updateExecutor"
+      @updateGroup="updateGroup"
+      @updatePriority="updatePriority"
     />
 
     <!-- Kanban Board Container -->
@@ -59,7 +59,11 @@
               </svg>
             </div>
             <div class="tasks-wrapper">
-              <div v-for="task in column.tasks" :key="task.id" class="task-card">
+              <div
+                v-for="task in column.tasks"
+                :key="task.id"
+                class="task-card"
+              >
                 <div class="task-container">
                   <div class="task-header">
                     <div class="task-title">{{ task.title }}</div>
@@ -67,7 +71,9 @@
                   <div class="task-footer">
                     <span class="task-id">{{ task.id }}</span>
                     <div class="task-icons">
-                      <span class="priority-icon">{{ getPriorityIcon(task.priority) }}</span>
+                      <span class="priority-icon">{{
+                        getPriorityIcon(task.priority)
+                      }}</span>
                       <button class="p-1">
                         <div class="task-icons">
                           <span class="user-icon">👤</span>
@@ -94,9 +100,9 @@ import TaskFilters from "./filters/TaskFilters.vue";
 const activeTab = ref("Kanban");
 
 // Filter information
-const selectedExecutor = ref(null); // need to add other page's setting
-const selectedGroup = ref(null);
-const selectedPriority = ref(null);
+const selectedExecutor = ref(); // need to add other page's setting
+const selectedGroup = ref();
+const selectedPriority = ref();
 
 const allTasks = ref([
   {
@@ -181,9 +187,10 @@ const fetchInitialData = async () => {
 };
 
 const distributeTasksByStatus = () => {
-  columns.value.forEach((column) => {
-    column.tasks = allTasks.value.filter((task) => task.status === column.id);
-  });
+  columns.value = columns.value.map((column) => ({
+    ...column,
+    tasks: allTasks.value.filter((task) => task.status === column.id),
+  }));
 };
 // 優先度に応じたアイコンを返す
 const getPriorityIcon = (priority) => {
@@ -196,7 +203,7 @@ const getPriorityIcon = (priority) => {
   return icons[priority] || "❔";
 };
 
-const columnTitle = ref(null);
+const columnTitle = ref();
 
 const setColumnTitleSize = () => {
   if (columnTitle.value) {
@@ -341,21 +348,25 @@ onMounted(async () => {
 }
 
 /* カスタムスクロールバー */
-.board-container::-webkit-scrollbar { /* スクロールバー自体のスタイル */
+.board-container::-webkit-scrollbar {
+  /* スクロールバー自体のスタイル */
   height: 8px;
 }
 
-.board-container::-webkit-scrollbar-track { /* スクロールバーのトラック（スクロールバーが移動する背景部分）のスタイル */
+.board-container::-webkit-scrollbar-track {
+  /* スクロールバーのトラック（スクロールバーが移動する背景部分）のスタイル */
   background: #f1f1f1;
   border-radius: 4px;
 }
 
-.board-container::-webkit-scrollbar-thumb { /* スクロールバーのサム（ドラッグしてスクロールする部分）のスタイル */
+.board-container::-webkit-scrollbar-thumb {
+  /* スクロールバーのサム（ドラッグしてスクロールする部分）のスタイル */
   background: #888;
   border-radius: 4px;
 }
 
-.board-container::-webkit-scrollbar-thumb:hover { /* スクロールバーのサムにホバーしたときのスタイル */
+.board-container::-webkit-scrollbar-thumb:hover {
+  /* スクロールバーのサムにホバーしたときのスタイル */
   background: #555;
 }
 </style>
