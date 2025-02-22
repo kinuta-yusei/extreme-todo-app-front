@@ -16,8 +16,7 @@
       :default-group="selectedGroup" 
       :priority-options="priorityOptions" 
       :default-priority="selectedPriority"
-      :isStatusNeeded="true"
-      :status-options="['todo', 'inProgress', 'inReview']"
+      :isStatusNeeded="false"
       :default-status="todo"
       :isScheduleNeeded="true"
       @updateExecutor="updateExecutor" 
@@ -41,9 +40,9 @@ const groupOptions = ['Group1', 'Group2', 'Group3', 'Group4', 'Group5', 'Group6'
 const priorityOptions = ['Critical', 'Urgent', 'Minor', 'Backlog']
 
 // Filters
-const selectedExecutor = ref() // need to add other page's setting
-const selectedGroup = ref()
-const selectedPriority = ref()
+const selectedExecutor = ref([]) // need to add other page's setting
+const selectedGroup = ref([])
+const selectedPriority = ref([])
 
 const updateExecutor = (executor) => {
   selectedExecutor.value = executor

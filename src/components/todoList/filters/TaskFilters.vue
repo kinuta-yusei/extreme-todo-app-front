@@ -8,7 +8,7 @@
           v-for="executor in properties.executorOptions"
           :key="executor"
           @click="handleExecutorClick(executor)"
-          :class="['filter-btn', { 'active-tab': selectedExecutor === executor }]"
+          :class="['filter-btn', { 'active-tab': selectedExecutor.includes(executor) }]"
         >
           {{ executor }}
         </button>
@@ -23,7 +23,7 @@
           v-for="group in properties.groupOptions"
           :key="group"
           @click="handleGroupClick(group)"
-          :class="['filter-btn', { 'active-tab': selectedGroup === group }]"
+          :class="['filter-btn', { 'active-tab': selectedGroup.includes(group) }]"
         >
           {{ group }}
         </button>
@@ -38,7 +38,7 @@
           v-for="priority in properties.priorityOptions"
           :key="priority"
           @click="handlePriorityClick(priority)"
-          :class="['filter-btn', { 'active-tab': selectedPriority === priority }]"
+          :class="['filter-btn', { 'active-tab': selectedPriority.includes(priority) }]"
         >
           {{ priority }}
         </button>
@@ -53,7 +53,7 @@
           v-for="status in properties.statusOptions"
           :key="status"
           @click="handleStatusClick(status)"
-          :class="['filter-btn', { 'active-tab': selectedStatus === status }]"
+          :class="['filter-btn', { 'active-tab': selectedStatus.includes(status) }]"
         >
           {{ status }}
         </button>
@@ -95,32 +95,52 @@ const properties = defineProps({
 const emits = defineEmits(['updateExecutor', 'updateGroup', 'updatePriority', 'updateStatus'])
 
 // Filters
-const selectedExecutor = ref()
-const selectedGroup = ref()
-const selectedPriority = ref()
-const selectedStatus = ref()
+const selectedExecutor = ref([])
+const selectedGroup = ref([])
+const selectedPriority = ref([])
+const selectedStatus = ref([])
 
 // Schedule
 const selectedStartDate = ref('')
 const selectedEndDate = ref('')
 
 const handleExecutorClick = (executor) => {
-  selectedExecutor.value = selectedExecutor.value === executor ? undefined : executor
+  const index = selectedExecutor.value.indexOf(executor)
+  if (index === -1) {
+    selectedExecutor.value.push(executor)
+  } else {
+    selectedExecutor.value.splice(index, 1)
+  }
   emits('updateExecutor', selectedExecutor.value)
 }
 
 const handleGroupClick = (group) => {
-  selectedGroup.value = selectedGroup.value === group ? undefined : group
+  const index = selectedGroup.value.indexOf(group)
+  if (index === -1) {
+    selectedGroup.value.push(group)
+  } else {
+    selectedGroup.value.splice(index, 1)
+  }
   emits('updateGroup', selectedGroup.value)
 }
 
 const handlePriorityClick = (priority) => {
-  selectedPriority.value = selectedPriority.value === priority ? undefined : priority
+  const index = selectedPriority.value.indexOf(priority)
+  if (index === -1) {
+    selectedPriority.value.push(priority)
+  } else {
+    selectedPriority.value.splice(index, 1)
+  }
   emits('updatePriority', selectedPriority.value)
 }
 
 const handleStatusClick = (status) => {
-  selectedStatus.value = selectedStatus.value === status ? undefined : status
+  const index = selectedStatus.value.indexOf(status)
+  if (index === -1) {
+    selectedStatus.value.push(status)
+  } else {
+    selectedStatus.value.splice(index, 1)
+  }
   emits('updateStatus', selectedStatus.value)
 }
 </script>
