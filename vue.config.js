@@ -1,5 +1,8 @@
 const { defineConfig } = require('@vue/cli-service');
 
 module.exports = defineConfig({
-  transpileDependencies: true
+  // github pagesへデプロイ用の設定
+  outputDir: 'docs',
+  assetsDir: './',
+  publicPath: './'
 });
