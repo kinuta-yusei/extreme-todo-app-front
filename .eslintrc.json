@@ -30,6 +30,18 @@
                     }
                 ]
             }
+        },
+        {
+            "files": ["*.vue"],
+            "rules": {
+                "unicorn/prefer-ternary": "off" // このルールを無効にする
+            }
+        },
+        {
+            "files": ["babel.config.js", "vue.config.js"],
+            "rules": {
+                "unicorn/prefer-module": "off" // このルールを無効にする
+            }
         }
     ]
 }

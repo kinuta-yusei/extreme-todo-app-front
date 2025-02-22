@@ -268,8 +268,8 @@ const activeTab = ref('Kanban')
 const showTaskModal = ref(false)
 const showColumnSettingsModal = ref(false)
 const isEditing = ref(false)
-const selectedTask = ref(null)
-const selectedColumn = ref(null)
+const selectedTask = ref()
+const selectedColumn = ref()
 
 const taskForm = ref({
   title: '',
@@ -331,7 +331,7 @@ const openEditTaskModal = (task) => {
 
 const closeTaskModal = () => {
   showTaskModal.value = false
-  selectedTask.value = null
+  selectedTask.value = undefined
 }
 
 const handleTaskSubmit = async () => {
@@ -371,7 +371,7 @@ const openColumnSettings = (column) => {
 
 const closeColumnSettingsModal = () => {
   showColumnSettingsModal.value = false
-  selectedColumn.value = null
+  selectedColumn.value = undefined
 }
 
 const handleColumnSettingsSubmit = async () => {
