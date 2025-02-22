@@ -1,4 +1,4 @@
-name: Deploy Jekyll with GitHub Pages dependencies preinstalled
+name: Deploy to GitHub Pages
 
 on:
   # Runs on pushes targeting the default branch
@@ -37,7 +37,7 @@ jobs:
         run: npm run build
       
       - name: Determine deployment path
-        run: echo "DEPLOY_PATH=${GITHUB_REF_NAME}" >> $GITHUB_ENV
+        run: echo "DEPLOY_PATH=${GITHUB_REF_NAME//\//_}" >> $GITHUB_ENVecho "DEPLOY_PATH=${GITHUB_REF_NAME}" >> $GITHUB_ENV
       
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
