@@ -37,7 +37,7 @@ jobs:
         run: npm run build
       
       - name: Determine deployment path
-        run: echo "DEPLOY_PATH=${GITHUB_REF_NAME//\//_}" >> $GITHUB_ENVecho "DEPLOY_PATH=${GITHUB_REF_NAME}" >> $GITHUB_ENV
+        run: echo "DEPLOY_PATH=${GITHUB_REF_NAME//\//_}" >> $GITHUB_ENV
       
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
