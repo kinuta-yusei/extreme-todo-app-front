@@ -1,7 +1,6 @@
-const { defineConfig } = require('@vue/cli-service');
-
-module.exports = defineConfig({
+module.exports = {
   // github pagesへデプロイ用の設定
+  outputDir: 'docs',
   assetsDir: './',
   publicPath: './'
-});
+};
