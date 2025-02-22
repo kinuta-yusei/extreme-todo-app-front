@@ -2,8 +2,8 @@ name: Deploy to GitHub Pages
 
 on:
   # Runs on pushes targeting the default branch
-  push:
-    branches: ["release/v0.1.0"]
+  pull_request:
+    types: [opened, synchronize, reopened, auto_merge_enabled]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
