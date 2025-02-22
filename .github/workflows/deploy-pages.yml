@@ -35,5 +35,4 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          destination_dir: ./dist # ビルド結果のディレクトリを指定
-          publish_branch: gh-pages # GitHub Pagesのブランチを指定
+          publish_dir: ./dist # ビルド結果のディレクトリを指定
