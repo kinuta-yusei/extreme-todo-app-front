@@ -38,7 +38,7 @@ jobs:
       
       - name: Determine deployment path
         id: determine_deploy_path
-        run: echo "::set-output name=DEPLOY_PATH::${GITHUB_REF_NAME}"
+        run: echo "::set-output name=DEPLOY_PATH::${GITHUB_REF_NAME//\//_}"
       
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
