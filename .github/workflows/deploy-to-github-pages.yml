@@ -50,3 +50,12 @@ jobs:
         uses: actions/deploy-pages@v4
         with:
           artifact_name: ${{ steps.determine_deploy_path.outputs.DEPLOY_PATH }}
+
+      - name: Get deployment URL
+        id: deployment_url
+        run: |
+          DEPLOYMENT_URL="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/${{ env.DEPLOY_PATH }}"
+          echo "::set-output name=url::$DEPLOYMENT_URL"
+      
+      - name: Output deployment URL
+        run: echo "Deployment URL: ${{ steps.deployment_url.outputs.url }}"
