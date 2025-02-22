@@ -31,6 +31,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: "22"
+          
       - name: Install Dependencies
         run: npm install
       - name: Build
@@ -39,24 +40,16 @@ jobs:
       - name: Determine deployment path
         id: determine_deploy_path
         run: echo "::set-output name=DEPLOY_PATH::${GITHUB_REF_NAME//\//_}"
-      
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./dist
-          name: ${{ steps.determine_deploy_path.outputs.DEPLOY_PATH }}
 
       - name: Deploy
         uses: actions/deploy-pages@v4
         with:
           artifact_name: ${{ steps.determine_deploy_path.outputs.DEPLOY_PATH }}
 
-      - name: Get deployment URL
-        id: deployment_url
-        run: |
-          DEPLOYMENT_URL="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/${{ env.DEPLOY_PATH }}"
-          echo "::set-output name=url::$DEPLOYMENT_URL"
-      
-      - name: Output deployment URL
-        run: |
-          echo "Deployment URL: ${{ steps.deployment_url.outputs.url }}"
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist # ビルド結果のディレクトリを指定
+          publish_branch: gh-pages # GitHub Pagesのブランチを指定
+          destination_folder: ${{ github.head_ref && format('/{0}', replace(github.head_ref, '/', '_')) }} # スラッシュをアンダースコアに置換
