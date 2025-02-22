@@ -5,8 +5,15 @@ on:
     types: [opened, synchronize, reopened, auto_merge_enabled]
   workflow_dispatch:
 
+# 権限の設定
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   deploy:
+
     runs-on: ubuntu-latest
 
     steps:
