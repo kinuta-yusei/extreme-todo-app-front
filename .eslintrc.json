@@ -1,0 +1,35 @@
+{
+    "root": true,
+    "env": {
+        "node": true,
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:vue/vue3-recommended",
+        "plugin:unicorn/recommended"
+    ],
+    "parserOptions": {
+        "ecmaVersion": 2020,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "vue",
+        "unicorn"
+    ],
+    "overrides": [
+        {
+            "files": ["*.vue"],
+            "rules": {
+            
+                "unicorn/filename-case": [
+                    "error",
+                    {
+                        "case": "pascalCase"
+                    }
+                ]
+            }
+        }
+    ]
+}
