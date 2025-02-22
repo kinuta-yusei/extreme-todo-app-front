@@ -37,13 +37,14 @@ jobs:
         run: npm run build
       
       - name: Determine deployment path
-        run: echo "DEPLOY_PATH=${GITHUB_REF_NAME//\//_}" >> $GITHUB_ENV
+        id: determine_deploy_path
+        run: echo "::set-output name=DEPLOY_PATH::${GITHUB_REF_NAME}"
       
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
-          name: ${{ env.DEPLOY_PATH }}
+          name: ${{ steps.determine_deploy_path.outputs.DEPLOY_PATH }}
 
   # Deployment job
   deploy:
@@ -56,4 +57,4 @@ jobs:
       - name: Deploy
         uses: actions/deploy-pages@v4
         with:
-          artifact_name: ${{ env.DEPLOY_PATH }}
+          artifact_name: ${{ needs.build.outputsset_value.DEPLOY_PATH }}
