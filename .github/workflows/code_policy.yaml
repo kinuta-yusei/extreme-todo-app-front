@@ -1,7 +1,6 @@
 name: Code Policy
 
 on: 
-  push:
   pull_request:
 
 jobs: 
