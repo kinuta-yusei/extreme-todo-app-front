@@ -6,11 +6,9 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "core-js": "^3.8.3",
-    "gh-pages": "^6.3.0",
     "lucide-vue-next": "^0.474.0",
     "pinia": "^2.3.1",
     "vue": "^3.2.13",
@@ -27,6 +25,7 @@
     "eslint": "^7.32.0",
     "eslint-plugin-unicorn": "^39.0.0",
     "eslint-plugin-vue": "^8.0.3",
+    "gh-pages": "^6.3.0",
     "postcss": "^8.5.1",
     "tailwindcss": "^4.0.0"
   },
