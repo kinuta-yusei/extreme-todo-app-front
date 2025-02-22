@@ -58,4 +58,5 @@ jobs:
           echo "::set-output name=url::$DEPLOYMENT_URL"
       
       - name: Output deployment URL
-        run: echo "Deployment URL: ${{ steps.deployment_url.outputs.url }}"
+        run: |
+          echo "Deployment URL: ${{ steps.deployment_url.outputs.url }}"
