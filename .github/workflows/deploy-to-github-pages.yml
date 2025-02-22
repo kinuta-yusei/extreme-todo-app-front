@@ -23,6 +23,9 @@ jobs:
 
       - name: Build
         run: npm run build # Vue.jsのビルドコマンドを実行
+    
+      - name: Determine Destination Folder
+        run: echo "DESTINATION_FOLDER=${GITHUB_REF_NAME//\//_}" >> $GITHUB_ENV
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
@@ -30,4 +33,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist # ビルド結果のディレクトリを指定
           publish_branch: gh-pages # GitHub Pagesのブランチを指定
-          destination_folder: ${{ github.head_ref && format('/{0}', replaceAll(github.head_ref, '/', '_')) }} # ブランチ名をパスに含める（スラッシュはアンダースコアに置換）
+          destination_folder: ${{ env.DESTINATION_FOLDER }} # デプロイ先のフォルダ名を指定 
