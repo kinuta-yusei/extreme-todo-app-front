@@ -5,7 +5,7 @@
       <div class="filter-label">Executor:</div>
       <div class="filter-buttons">
         <button
-          v-for="executor in props.executorOptions"
+          v-for="executor in properties.executorOptions"
           :key="executor"
           @click="handleExecutorClick(executor)"
           :class="['filter-btn', { 'active-tab': selectedExecutor === executor }]"
@@ -20,7 +20,7 @@
       <div class="filter-label">Group:</div>
       <div class="filter-buttons">
         <button
-          v-for="group in props.groupOptions"
+          v-for="group in properties.groupOptions"
           :key="group"
           @click="handleGroupClick(group)"
           :class="['filter-btn', { 'active-tab': selectedGroup === group }]"
@@ -35,7 +35,7 @@
       <div class="filter-label">Priority:</div>
       <div class="filter-buttons">
         <button
-          v-for="priority in props.priorityOptions"
+          v-for="priority in properties.priorityOptions"
           :key="priority"
           @click="handlePriorityClick(priority)"
           :class="['filter-btn', { 'active-tab': selectedPriority === priority }]"
@@ -46,11 +46,11 @@
     </div>
 
     <!-- Status Filter -->
-    <div v-if="props.isStatusNeeded" class="filter-row">
+    <div v-if="properties.isStatusNeeded" class="filter-row">
       <div class="filter-label">Status:</div>
       <div class="filter-buttons">
         <button
-          v-for="status in props.statusOptions"
+          v-for="status in properties.statusOptions"
           :key="status"
           @click="handleStatusClick(status)"
           :class="['filter-btn', { 'active-tab': selectedStatus === status }]"
@@ -61,7 +61,7 @@
     </div>
 
     <!-- Schedule Filter -->
-    <div v-if="props.isScheduleNeeded" class="filter-row">
+    <div v-if="properties.isScheduleNeeded" class="filter-row">
       <div class="filter-label">Schedule:</div>
         <div class="filter-calendar">
             <div class="date-input-wrapper">
@@ -80,7 +80,7 @@
 <script setup>
 import { ref, defineProps, defineEmits } from 'vue'
 
-const props = defineProps({
+const properties = defineProps({
   executorOptions: Array,
   defaultExecutor: String,
   groupOptions: Array,
@@ -95,32 +95,32 @@ const props = defineProps({
 const emits = defineEmits(['updateExecutor', 'updateGroup', 'updatePriority', 'updateStatus'])
 
 // Filters
-const selectedExecutor = ref(null)
-const selectedGroup = ref(null)
-const selectedPriority = ref(null)
-const selectedStatus = ref(null)
+const selectedExecutor = ref()
+const selectedGroup = ref()
+const selectedPriority = ref()
+const selectedStatus = ref()
 
 // Schedule
 const selectedStartDate = ref('')
 const selectedEndDate = ref('')
 
 const handleExecutorClick = (executor) => {
-  selectedExecutor.value = selectedExecutor.value === executor ? null : executor
+  selectedExecutor.value = selectedExecutor.value === executor ? undefined : executor
   emits('updateExecutor', selectedExecutor.value)
 }
 
 const handleGroupClick = (group) => {
-  selectedGroup.value = selectedGroup.value === group ? null : group
+  selectedGroup.value = selectedGroup.value === group ? undefined : group
   emits('updateGroup', selectedGroup.value)
 }
 
 const handlePriorityClick = (priority) => {
-  selectedPriority.value = selectedPriority.value === priority ? null : priority
+  selectedPriority.value = selectedPriority.value === priority ? undefined : priority
   emits('updatePriority', selectedPriority.value)
 }
 
 const handleStatusClick = (status) => {
-  selectedStatus.value = selectedStatus.value === status ? null : status
+  selectedStatus.value = selectedStatus.value === status ? undefined : status
   emits('updateStatus', selectedStatus.value)
 }
 </script>
