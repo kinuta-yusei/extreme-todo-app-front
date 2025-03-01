@@ -1,62 +1,59 @@
 <template>
   <div class="min-h-screen bg-gray-50 p-6">
     <!-- Navigation -->
-    <PageNavigation 
-      :project-name="'Kanban Board'" 
-      :active-tab="'Table'" 
+    <PageNavigation
+      :project-name="'Kanban Board'"
+      :active-tab="'Table'"
       :tabs="['Table', 'Kanban', 'Diagram']"
       @update:active-tab="activeTab = $event"
     />
 
     <!-- Filters -->
-    <TaskFilters 
-      :executor-options="executorOptions" 
-      :default-executor="selectedExecutor" 
-      :group-options="groupOptions" 
-      :default-group="selectedGroup" 
-      :priority-options="priorityOptions" 
+    <TaskFilters
+      :executor-options="executorOptions"
+      :default-executor="selectedExecutor"
+      :group-options="groupOptions"
+      :default-group="selectedGroup"
+      :priority-options="priorityOptions"
       :default-priority="selectedPriority"
       :isStatusNeeded="false"
       :default-status="todo"
       :isScheduleNeeded="true"
-      @updateExecutor="updateExecutor" 
-      @updateGroup="updateGroup" 
-      @updatePriority="updatePriority" 
+      @updateExecutor="updateExecutor"
+      @updateGroup="updateGroup"
+      @updatePriority="updatePriority"
     />
-
-
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import PageNavigation from './navigation/Navigation.vue'
-import TaskFilters from './filters/TaskFilters.vue'
+import { ref } from "vue";
+import PageNavigation from "./navigation/Navigation.vue";
+import TaskFilters from "./filters/TaskFilters.vue";
 
 // State
-const activeTab = ref('Kanban')
-const executorOptions = ['User1', 'User2', 'User3', 'User4', 'User5', 'User6', 'User7']
-const groupOptions = ['Group1', 'Group2', 'Group3', 'Group4', 'Group5', 'Group6', 'Group7']
-const priorityOptions = ['Critical', 'Urgent', 'Minor', 'Backlog']
+const activeTab = ref("Kanban");
+const executorOptions = ref([]);
+const groupOptions = ref([]);
+const priorityOptions = ref([]);
+// const statusOptions = ref([])
 
 // Filters
-const selectedExecutor = ref([]) // need to add other page's setting
-const selectedGroup = ref([])
-const selectedPriority = ref([])
+const selectedExecutor = ref([]); // need to add other page's setting
+const selectedGroup = ref([]);
+const selectedPriority = ref([]);
 
 const updateExecutor = (executor) => {
-  selectedExecutor.value = executor
-}
+  selectedExecutor.value = executor;
+};
 
 const updateGroup = (group) => {
-  selectedGroup.value = group
-}
+  selectedGroup.value = group;
+};
 
 const updatePriority = (priority) => {
-  selectedPriority.value = priority
-}
-
-
+  selectedPriority.value = priority;
+};
 </script>
 
 <style scoped>
@@ -102,6 +99,6 @@ const updatePriority = (priority) => {
 }
 
 .filter-btn:not(.active-tab):hover {
-  background-color: #F3F4F6;
+  background-color: #f3f4f6;
 }
 </style>
