@@ -2,10 +2,24 @@
   <div class="filter-section bg-gray-200 p-4 rounded-lg">
     <!-- Executor Filter -->
     <div class="filter-row">
-      <div class="filter-label">Executor:</div>
+      <div class="filter-label">
+        Executor:
+      </div>
       <div class="filter-buttons">
-        <template v-if="selectedExecutor.length === 0">
-          <!-- SVGを表示 -->
+        <!-- active-tabの要素を表示 -->
+        <button
+          v-for="executor in executorOptions"
+          :key="executor"
+          :class="[
+            'filter-btn',
+            { 'active-tab': selectedExecutor.includes(executor) },
+          ]"
+          @click="handleExecutorClick(executor)"
+        >
+          {{ executor }}
+        </button>
+        <!-- SVGを表示 -->
+        <div class="add-filter-btn-wrapper">
           <svg
             class="add-filter-btn"
             xmlns="http://www.w3.org/2000/svg"
@@ -16,95 +30,82 @@
               d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"
             />
           </svg>
-        </template>
-        <template v-else>
-          <!-- active-tabの要素を表示 -->
-          <button
-            v-for="executor in executorOptions"
-            :key="executor"
-            @click="handleExecutorClick(executor)"
-            :class="[
-              'filter-btn',
-              { 'active-tab': selectedExecutor.includes(executor) },
-            ]"
-          >
-            {{ executor }}
-          </button>
-        </template>
+        </div>
       </div>
     </div>
 
     <!-- Group Filter -->
     <div class="filter-row">
-      <div class="filter-label">Group:</div>
+      <div class="filter-label">
+        Group:
+      </div>
       <div class="filter-buttons">
-        <template v-if="selectedGroup.length === 0">
-          <!-- SVGを表示 -->
-          <svg
-            class="add-filter-btn"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 -960 960 960"
-            @click="showSearchPopup('group')"
-          >
-            <path
-              d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"
-            />
-          </svg>
-        </template>
-        <template v-else>
-          <!-- active-tabの要素を表示 -->
-          <button
-            v-for="group in groupOptions"
-            :key="group"
-            @click="handleGroupClick(group)"
-            :class="[
-              'filter-btn',
-              { 'active-tab': selectedGroup.includes(group) },
-            ]"
-          >
-            {{ group }}
-          </button>
-        </template>
+        <!-- active-tabの要素を表示 -->
+        <button
+          v-for="group in groupOptions"
+          :key="group"
+          :class="[
+            'filter-btn',
+            { 'active-tab': selectedGroup.includes(group) },
+          ]"
+          @click="handleGroupClick(group)"
+        >
+          {{ group }}
+        </button>
+        <!-- SVGを表示 -->
+        <svg
+          class="add-filter-btn"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 -960 960 960"
+          @click="showSearchPopup('group')"
+        >
+          <path
+            d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"
+          />
+        </svg>
       </div>
     </div>
 
     <!-- Priority Filter -->
     <div class="filter-row">
-      <div class="filter-label">Priority:</div>
+      <div class="filter-label">
+        Priority:
+      </div>
       <div class="filter-buttons">
-        <template v-if="selectedPriority.length === 0">
-          <!-- SVGを表示 -->
-          <svg
-            class="add-filter-btn"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 -960 960 960"
-            @click="showSearchPopup('priority')"
-          >
-            <path
-              d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"
-            />
-          </svg>
-        </template>
-        <template v-else>
-          <!-- active-tabの要素を表示 -->
-          <button
-            v-for="priority in priorityOptions"
-            :key="priority"
-            @click="handlePriorityClick(priority)"
-            :class="[
-              'filter-btn',
-              { 'active-tab': selectedPriority.includes(priority) },
-            ]"
-          >
-            {{ priority }}
-          </button>
-        </template>
+        <!-- active-tabの要素を表示 -->
+        <button
+          v-for="priority in priorityOptions"
+          :key="priority"
+          :class="[
+            'filter-btn',
+            { 'active-tab': selectedPriority.includes(priority) },
+          ]"
+          @click="handlePriorityClick(priority)"
+        >
+          {{ priority }}
+        </button>
+        <!-- SVGを表示 -->
+        <svg
+          class="add-filter-btn"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 -960 960 960"
+          @click="showSearchPopup('priority')"
+        >
+          <path
+            d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"
+          />
+        </svg>
       </div>
     </div>
 
     <!-- Status Filter -->
-    <div v-if="properties.isStatusNeeded" class="filter-row">
-      <div class="filter-label">Status:</div>
+    <div
+      v-if="properties.isStatusNeeded"
+      class="filter-row"
+    >
+      <div class="filter-label">
+        Status:
+      </div>
       <div class="filter-buttons">
         <template v-if="selectedStatus.length === 0">
           <!-- SVGを表示 -->
@@ -124,11 +125,11 @@
           <button
             v-for="status in statusOptions"
             :key="status"
-            @click="handleStatusClick(status)"
             :class="[
               'filter-btn',
               { 'active-tab': selectedStatus.includes(status) },
             ]"
+            @click="handleStatusClick(status)"
           >
             {{ status }}
           </button>
@@ -137,30 +138,40 @@
     </div>
 
     <!-- Schedule Filter -->
-    <div v-if="properties.isScheduleNeeded" class="filter-row">
-      <div class="filter-label">Schedule:</div>
+    <div
+      v-if="properties.isScheduleNeeded"
+      class="filter-row"
+    >
+      <div class="filter-label">
+        Schedule:
+      </div>
       <div class="filter-calendar">
         <div class="date-input-wrapper">
           <span class="date-placeholder">Target Start Date</span>
           <input
+            v-model="selectedStartDate"
             type="date"
             class="filter-btn"
-            v-model="selectedStartDate"
             @change="validateDates"
-          />
+          >
         </div>
         <div class="date-input-wrapper">
           <span class="date-placeholder">Target End Date</span>
           <input
+            v-model="selectedEndDate"
             type="date"
             class="filter-btn"
-            v-model="selectedEndDate"
             @change="validateDates"
-          />
+          >
         </div>
       </div>
     </div>
-    <div v-if="dateError" class="error-message">{{ dateError }}</div>
+    <div
+      v-if="dateError"
+      class="error-message"
+    >
+      {{ dateError }}
+    </div>
   </div>
 
   <!-- Search Popup -->
@@ -172,12 +183,18 @@
     <div class="search-popup">
       <div class="search-popup-content">
         <input
-          type="text"
-          v-model="searchKeyword"
-          @keyup.enter="handleSearch"
-          placeholder="Enter keyword"
           ref="searchInput"
-        />
+          v-model="searchKeyword"
+          type="text"
+          placeholder="Enter keyword"
+          @keyup.enter="handleSearch"
+        >
+        <div
+          v-if="searchError"
+          class="error-message"
+        >
+          {{ searchError }}
+        </div>
         <div class="search-results">
           <div
             v-for="item in filteredOptions"
@@ -199,8 +216,12 @@
           </div>
         </div>
         <div class="search-popup-footer">
-          <button @click="handleSearch">Search</button>
-          <button @click="closeSearchPopup">Close</button>
+          <button @click="handleSearch">
+            Search
+          </button>
+          <button @click="closeSearchPopup">
+            Close
+          </button>
         </div>
       </div>
     </div>
@@ -254,6 +275,7 @@ const isShowSearchPopup = ref(false);
 const searchKeyword = ref("");
 const searchInput = ref("");
 const currentFilterType = ref(""); // 現在のフィルタータイプ
+const searchError = ref("");
 
 const executorOptions = ref([...properties.executorOptions]);
 const groupOptions = ref([...properties.groupOptions]);
@@ -311,28 +333,48 @@ const handleSearch = () => {
   if (searchKeyword.value) {
     switch (currentFilterType.value) {
       case "executor":
-        executorOptions.value.push(searchKeyword.value);
-        emits("addExecutorOption", searchKeyword.value);
-        selectedExecutor.value.push(searchKeyword.value);
-        emits("updateExecutor", selectedExecutor.value);
+        if (!executorOptions.value.includes(searchKeyword.value)) {
+          searchError.value = "";
+          executorOptions.value.push(searchKeyword.value);
+          emits("addExecutorOption", searchKeyword.value);
+          selectedExecutor.value.push(searchKeyword.value);
+          emits("updateExecutor", selectedExecutor.value);
+        } else {
+          searchError.value = "This executor is already added";
+        }
         break;
       case "group":
-        groupOptions.value.push(searchKeyword.value);
-        emits("addGroupOption", searchKeyword.value);
-        selectedGroup.value.push(searchKeyword.value);
-        emits("updateGroup", selectedGroup.value);
+        if (!groupOptions.value.includes(searchKeyword.value)) {
+          searchError.value = "";
+          groupOptions.value.push(searchKeyword.value);
+          emits("addGroupOption", searchKeyword.value);
+          selectedGroup.value.push(searchKeyword.value);
+          emits("updateGroup", selectedGroup.value);
+        } else {
+          searchError.value = "This group is already added";
+        }
         break;
       case "priority":
-        priorityOptions.value.push(searchKeyword.value);
-        emits("addPriorityOption", searchKeyword.value);
-        selectedPriority.value.push(searchKeyword.value);
-        emits("updatePriority", selectedPriority.value);
+        if (!priorityOptions.value.includes(searchKeyword.value)) {
+          searchError.value = "";
+          priorityOptions.value.push(searchKeyword.value);
+          emits("addPriorityOption", searchKeyword.value);
+          selectedPriority.value.push(searchKeyword.value);
+          emits("updatePriority", selectedPriority.value);
+        } else {
+          searchError.value = "This priority is already added";
+        }
         break;
       case "status":
-        statusOptions.value.push(searchKeyword.value);
-        emits("addStatusOption", searchKeyword.value);
-        selectedStatus.value.push(searchKeyword.value);
-        emits("updateStatus", selectedStatus.value);
+        if (!statusOptions.value.includes(searchKeyword.value)) {
+          searchError.value = "";
+          statusOptions.value.push(searchKeyword.value);
+          emits("addStatusOption", searchKeyword.value);
+          selectedStatus.value.push(searchKeyword.value);
+          emits("updateStatus", selectedStatus.value);
+        } else {
+          searchError.value = "This status is already added";
+        }
         break;
     }
     searchKeyword.value = ""; // ポップアップを閉じずに検索キーワードをクリア
@@ -493,12 +535,20 @@ const handleStatusClick = (status) => {
 .filter-label {
   width: 80px;
   text-align: right;
-  padding-right: 1rem;
+  font-size: 0.875rem;
+  padding: 0.5rem 1rem;
 }
 
 .filter-buttons {
   display: flex;
   gap: 0.5rem;
+}
+
+.add-filter-btn-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.875rem;
 }
 
 .add-filter-btn {
@@ -552,7 +602,6 @@ const handleStatusClick = (status) => {
   border-radius: 9999px;
   font-size: 0.875rem;
   transition: all 0.2s ease;
-  width: 150px; /* 幅を調整 */
 }
 
 .search-popup-overlay {
