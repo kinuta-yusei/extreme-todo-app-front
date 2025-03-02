@@ -16,12 +16,12 @@
       :default-group="selectedGroup"
       :priority-options="priorityOptions"
       :default-priority="selectedPriority"
-      :isStatusNeeded="false"
+      :is-status-needed="false"
       :default-status="todo"
-      :isScheduleNeeded="true"
-      @updateExecutor="updateExecutor"
-      @updateGroup="updateGroup"
-      @updatePriority="updatePriority"
+      :is-schedule-needed="true"
+      @update-executor="updateExecutor"
+      @update-group="updateGroup"
+      @update-priority="updatePriority"
     />
   </div>
 </template>

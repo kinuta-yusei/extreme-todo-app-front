@@ -240,15 +240,15 @@ import {
 } from "vue";
 
 const properties = defineProps({
-  executorOptions: Array,
-  defaultExecutor: String,
-  groupOptions: Array,
-  defaultGroup: String,
-  priorityOptions: Array,
-  defaultPriority: String,
-  isStatusNeeded: Boolean,
-  statusOptions: Array,
-  isScheduleNeeded: Boolean,
+  executorOptions: {type:Array, default: () => []},
+  defaultExecutor: {type: String, default: ""},
+  groupOptions: {type: Array, default: () => []},
+  defaultGroup: {type: String, default: ""},
+  priorityOptions: {type: Array, default: () => []},
+  defaultPriority: {type: String, default: ""},
+  isStatusNeeded: {type: Boolean, default: false},
+  statusOptions: {type: Array, default: () => []},
+  isScheduleNeeded: {type: Boolean, default: false}
 });
 
 const emits = defineEmits([
@@ -256,7 +256,14 @@ const emits = defineEmits([
   "updateGroup",
   "updatePriority",
   "updateStatus",
-  "updateExecutorOption",
+  "addExecutorOption",
+  "addGroupOption",
+  "addPriorityOption",
+  "addStatusOption",
+  "removeExecutorOption",
+  "removeGroupOption",
+  "removePriorityOption",
+  "removeStatusOption",
 ]);
 
 // Filters
