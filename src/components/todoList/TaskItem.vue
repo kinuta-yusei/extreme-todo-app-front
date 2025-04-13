@@ -27,14 +27,14 @@ export default {
       type: Number,
       required: true
     },
-    startDate: {
+    gridStartDate: {
       type: Date,
       required: true
-    }
+    },
   },
   computed: {
     svgWidth() {
-      return 800
+      return this.cellWidth * 100 // 100日分の幅を設定
     },
     labelPosition() {
       const startX = this.getXPosition(new Date(this.task.start))
@@ -58,8 +58,12 @@ export default {
   },
   methods: {
     getXPosition(date) {
-      const days = (date - this.startDate) / (1000 * 60 * 60 * 24)
-      return days * (this.cellWidth / 7)
+      console.log('date', date)
+      console.log('startDate', this.gridStartDate)
+      console.log('date - this.startDate', date - this.gridStartDate)
+      const days = (date - this.gridStartDate) / (1000 * 60 * 60 * 24)
+      console.log('days', days)
+      return days * this.cellWidth
     }
   }
 }
@@ -101,4 +105,5 @@ export default {
   stroke: #ccc;
   stroke-width: 1;
 }
+
 </style> 

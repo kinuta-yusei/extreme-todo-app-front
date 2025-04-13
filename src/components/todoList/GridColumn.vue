@@ -67,4 +67,12 @@ export default {
   width: 1px;
   background-color: #ccc; /* グリッド線の色 */
 }
+
+.tasks-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  pointer-events: auto; /* 変更 */
+}
 </style>

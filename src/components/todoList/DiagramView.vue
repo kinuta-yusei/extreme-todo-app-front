@@ -26,7 +26,7 @@
                   :key="task.id"
                   :task="task"
                   :cell-width="cellWidth"
-                  :start-date="dates[0]"
+                  :gridStartDate="dates[0]"
                 />
               </div>
 
@@ -82,8 +82,8 @@ export default defineComponent({
         {
           id: 1,
           name: 'Design Document',
-          start: '2024-01-26',
-          end: '2024-02-03',
+          start: '2024-01-12',
+          end: '2024-02-10',
           color: 'gray'
         },
         {
@@ -103,7 +103,7 @@ export default defineComponent({
         {
           id: 4,
           name: 'Release',
-          start: '2024-02-24',
+          start: '2024-02-25',
           end: '2024-03-02',
           color: 'gray'
         }
@@ -116,14 +116,14 @@ export default defineComponent({
     }
   },
   created() {
-    this.dates = this.generateDates('2024-01-26', '2024-04-30')
+    this.dates = this.generateDates('2024-01-01', '2024-04-30')
   },
   computed: {
     svgWidth() {
-      return this.dates.length * this.cellWidth
+      return this.dates.length * this.cellWidth;
     },
     svgHeight() {
-      return this.tasks.length * 120
+      return this.tasks.length * 120;
     },
     horizontalLineCount() {
       return this.tasks.length
@@ -149,27 +149,29 @@ export default defineComponent({
     getXPosition(date) {
       const startDate = this.dates[0]
       const days = (date - startDate) / (1000 * 60 * 60 * 24)
-      return days * (this.cellWidth / 7)
+      return days * this.cellWidth
     },
     calculateDependencyPath(dep) {
-      const fromTask = this.tasks.find(t => t.id === dep.from)
-      const toTask = this.tasks.find(t => t.id === dep.to)
+      const fromTask = this.tasks.find(t => t.id === dep.from);
+      const toTask = this.tasks.find(t => t.id === dep.to);
       
-      const fromIndex = this.tasks.indexOf(fromTask)
-      const toIndex = this.tasks.indexOf(toTask)
+      const fromIndex = this.tasks.indexOf(fromTask);
+      const toIndex = this.tasks.indexOf(toTask);
       
-      const fromX = this.getXPosition(new Date(fromTask.end))
-      const toX = this.getXPosition(new Date(toTask.start))
+      const fromX = this.getXPosition(new Date(fromTask.end));
+      const toX = this.getXPosition(new Date(toTask.start));
       
-      const fromY = fromIndex * 120 + 60
-      const toY = toIndex * 120 + 60
-      
-      const controlPointOffset = Math.min((toX - fromX) * 0.2, 40)
-      
-      return 'M ' + fromX + ' ' + fromY + ' C ' + 
-             (fromX + controlPointOffset) + ' ' + fromY + ', ' + 
-             (toX - controlPointOffset) + ' ' + toY + ', ' + 
-             toX + ' ' + toY
+      const fromY = fromIndex * 120 + 60;
+      const toY = toIndex * 120 + 60;
+
+      // S字のパスを描画する条件
+      if (fromTask.end === toTask.start) {
+        const controlPointOffset = 40; // S字のカーブのオフセット
+        return `M ${fromX} ${fromY} C ${fromX + controlPointOffset} ${fromY} ${toX - controlPointOffset} ${toY} ${toX} ${toY}`;
+      }
+
+      // 通常の直線パス
+      return `M ${fromX} ${fromY} L ${toX} ${toY}`;
     }
   }
 })
