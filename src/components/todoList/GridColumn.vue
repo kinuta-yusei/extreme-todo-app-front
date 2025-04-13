@@ -1,19 +1,23 @@
 <template>
-  <div class="grid-column">
-    <div class="date-cell">
-      {{ formatDate(date) }}
+  <div class="grid-container">
+    <div v-for="(date, index) in dates" :key="index" class="grid-column">
+      <div class="date-cell">{{ formatDate(date) }}</div>
+      <div class="grid-line"></div>
     </div>
-    <div class="grid-line"></div>
   </div>
 </template>
 
 <script>
 export default {
   name: 'GridColumn',
-  props: {
-    date: {
-      type: Date,
-      required: true
+  data() {
+    return {
+      // 今日から7日分の日付を生成
+      dates: Array.from({ length: 7 }, (_, index) => {
+        const date = new Date()
+        date.setDate(date.getDate() + index)
+        return date
+      })
     }
   },
   methods: {
@@ -27,11 +31,21 @@ export default {
 </script>
 
 <style scoped>
+.grid-container {
+  display: flex;
+  position: relative;
+  width: 100%;
+  height: 300px; /* コンテナに明示的な高さを設定 */
+  border: 1px solid #eee;
+  overflow: visible;
+}
+
 .grid-column {
   width: 80px;
   flex: 0 0 80px;
   position: relative;
   height: 100%;
+  min-height: 200px; /* 最小高さを設定 */
 }
 
 .date-cell {
@@ -51,17 +65,6 @@ export default {
   bottom: 0;
   left: 0;
   width: 1px;
-  background-color: #e5e7eb;
+  background-color: #ccc; /* グリッド線の色 */
 }
-
-/* 最初のカラムの左端にもグリッド線を表示 */
-.grid-column:first-child::before {
-  content: '';
-  position: absolute;
-  left: -80px;
-  top: 24px;
-  bottom: 0;
-  width: 1px;
-  background-color: #e5e7eb;
-}
-</style> 
+</style>
