@@ -10,7 +10,11 @@
 
     <!-- Filters -->
     <div class="mb-8 space-y-4">
-      <div v-for="(options, filter) in filters" :key="filter" class="flex items-center gap-4">
+      <div
+        v-for="(options, filter) in filters"
+        :key="filter"
+        class="flex items-center gap-4"
+      >
         <span class="w-24 text-gray-700">{{ filter }}:</span>
         <div class="flex flex-wrap gap-2">
           <button
@@ -30,8 +34,8 @@
 
     <!-- Create Task Button -->
     <button 
-      @click="openCreateTaskModal"
       class="mb-6 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+      @click="openCreateTaskModal"
     >
       <PlusIcon class="w-4 h-4 inline-block mr-2" />
       Create New Task
@@ -57,7 +61,9 @@
               >
                 <SettingsIcon class="w-4 h-4" />
               </button>
-              <h3 class="font-medium">{{ column.title }}</h3>
+              <h3 class="font-medium">
+                {{ column.title }}
+              </h3>
             </div>
             <div class="flex items-center gap-2">
               <span class="bg-gray-300 px-2 py-0.5 rounded-full text-sm">
@@ -79,10 +85,12 @@
             @dblclick="openEditTaskModal(task)"
           >
             <div class="flex items-center justify-between mb-2">
-              <h4 class="font-medium">{{ task.title }}</h4>
+              <h4 class="font-medium">
+                {{ task.title }}
+              </h4>
               <button 
-                @click="deleteTask(task)"
                 class="text-gray-400 hover:text-red-500 transition-colors"
+                @click="deleteTask(task)"
               >
                 <TrashIcon class="w-4 h-4" />
               </button>
@@ -90,9 +98,9 @@
             <div class="flex items-center justify-between">
               <div class="flex items-center gap-2">
                 <input 
-                  type="checkbox" 
+                  v-model="task.completed" 
+                  type="checkbox"
                   class="rounded border-gray-300"
-                  v-model="task.completed"
                   @change="updateTask(task)"
                 >
                 <span class="text-sm text-gray-600">{{ task.ticketNumber }}</span>
@@ -103,12 +111,12 @@
                     'w-2 h-2 rounded-full',
                     getPriorityColor(task.priority)
                   ]"
-                ></span>
+                />
                 <img 
                   :src="getUserAvatar(task.assignee)"
                   :alt="task.assignee"
                   class="w-6 h-6 rounded-full"
-                />
+                >
               </div>
             </div>
           </div>
@@ -117,7 +125,10 @@
     </div>
 
     <!-- Task Modal -->
-    <Modal v-if="showTaskModal" @close="closeTaskModal">
+    <Modal
+      v-if="showTaskModal"
+      @close="closeTaskModal"
+    >
       <template #header>
         <h3 class="text-lg font-medium">
           {{ isEditing ? 'Edit Task' : 'Create New Task' }}
@@ -125,7 +136,10 @@
       </template>
       
       <template #default>
-        <form @submit.prevent="handleTaskSubmit" class="space-y-4">
+        <form
+          class="space-y-4"
+          @submit.prevent="handleTaskSubmit"
+        >
           <div>
             <label class="block text-sm font-medium text-gray-700">Title</label>
             <input 
@@ -133,7 +147,7 @@
               type="text" 
               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
               required
-            />
+            >
           </div>
           
           <div>
@@ -143,7 +157,7 @@
               type="text" 
               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
               required
-            />
+            >
           </div>
           
           <div>
@@ -152,10 +166,18 @@
               v-model="taskForm.priority"
               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
             >
-              <option value="critical">Critical</option>
-              <option value="urgent">Urgent</option>
-              <option value="minor">Minor</option>
-              <option value="backlog">Backlog</option>
+              <option value="critical">
+                Critical
+              </option>
+              <option value="urgent">
+                Urgent
+              </option>
+              <option value="minor">
+                Minor
+              </option>
+              <option value="backlog">
+                Backlog
+              </option>
             </select>
           </div>
           
@@ -165,7 +187,11 @@
               v-model="taskForm.assignee"
               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
             >
-              <option v-for="user in users" :key="user.id" :value="user.id">
+              <option
+                v-for="user in users"
+                :key="user.id"
+                :value="user.id"
+              >
                 {{ user.name }}
               </option>
             </select>
@@ -177,7 +203,11 @@
               v-model="taskForm.group"
               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
             >
-              <option v-for="group in groups" :key="group.id" :value="group.id">
+              <option
+                v-for="group in groups"
+                :key="group.id"
+                :value="group.id"
+              >
                 {{ group.name }}
               </option>
             </select>
@@ -188,14 +218,14 @@
       <template #footer>
         <div class="flex justify-end gap-2">
           <button 
-            @click="closeTaskModal"
             class="px-4 py-2 border rounded-md hover:bg-gray-50"
+            @click="closeTaskModal"
           >
             Cancel
           </button>
           <button 
-            @click="handleTaskSubmit"
             class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+            @click="handleTaskSubmit"
           >
             {{ isEditing ? 'Update' : 'Create' }}
           </button>
@@ -204,13 +234,21 @@
     </Modal>
 
     <!-- Column Settings Modal -->
-    <Modal v-if="showColumnSettingsModal" @close="closeColumnSettingsModal">
+    <Modal
+      v-if="showColumnSettingsModal"
+      @close="closeColumnSettingsModal"
+    >
       <template #header>
-        <h3 class="text-lg font-medium">Column Settings</h3>
+        <h3 class="text-lg font-medium">
+          Column Settings
+        </h3>
       </template>
       
       <template #default>
-        <form @submit.prevent="handleColumnSettingsSubmit" class="space-y-4">
+        <form
+          class="space-y-4"
+          @submit.prevent="handleColumnSettingsSubmit"
+        >
           <div>
             <label class="block text-sm font-medium text-gray-700">Title</label>
             <input 
@@ -218,7 +256,7 @@
               type="text" 
               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
               required
-            />
+            >
           </div>
         </form>
       </template>
@@ -226,14 +264,14 @@
       <template #footer>
         <div class="flex justify-end gap-2">
           <button 
-            @click="closeColumnSettingsModal"
             class="px-4 py-2 border rounded-md hover:bg-gray-50"
+            @click="closeColumnSettingsModal"
           >
             Cancel
           </button>
           <button 
-            @click="handleColumnSettingsSubmit"
             class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+            @click="handleColumnSettingsSubmit"
           >
             Save
           </button>

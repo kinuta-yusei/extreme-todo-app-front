@@ -7,13 +7,15 @@
       :tabs="['Table', 'Kanban', 'Diagram']"
       @update:active-tab="activeTab = $event"
     />
-    <router-view></router-view>
+    <router-view />
 
     <div class="flex gap-6">
       <!-- Filter Panel -->
       <div class="w-72 bg-white rounded-lg shadow p-6 space-y-6">
         <div>
-          <h2 class="text-lg font-semibold mb-3">Executor</h2>
+          <h2 class="text-lg font-semibold mb-3">
+            Executor
+          </h2>
           <div class="flex flex-wrap gap-2">
             <button 
               v-for="user in users" 
@@ -30,7 +32,9 @@
         </div>
 
         <div>
-          <h2 class="text-lg font-semibold mb-3">Todo Group</h2>
+          <h2 class="text-lg font-semibold mb-3">
+            Todo Group
+          </h2>
           <div class="flex flex-wrap gap-2">
             <button 
               v-for="group in groups" 
@@ -47,7 +51,9 @@
         </div>
 
         <div>
-          <h2 class="text-lg font-semibold mb-3">Priority</h2>
+          <h2 class="text-lg font-semibold mb-3">
+            Priority
+          </h2>
           <div class="flex flex-wrap gap-2">
             <button 
               v-for="priority in priorities" 
@@ -64,7 +70,9 @@
         </div>
 
         <div>
-          <h2 class="text-lg font-semibold mb-3">Status</h2>
+          <h2 class="text-lg font-semibold mb-3">
+            Status
+          </h2>
           <div class="flex flex-wrap gap-2">
             <button 
               v-for="status in statuses" 
@@ -81,21 +89,23 @@
         </div>
 
         <div>
-          <h2 class="text-lg font-semibold mb-3">Scheduled Start Date</h2>
+          <h2 class="text-lg font-semibold mb-3">
+            Scheduled Start Date
+          </h2>
           <div class="space-y-2">
             <div class="flex items-center gap-2">
               <span class="text-sm text-gray-500">From</span>
               <input 
-                type="date" 
-                v-model="startDate"
+                v-model="startDate" 
+                type="date"
                 class="flex-1 px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-200"
               >
             </div>
             <div class="flex items-center gap-2">
               <span class="text-sm text-gray-500">To</span>
               <input 
-                type="date" 
-                v-model="endDate"
+                v-model="endDate" 
+                type="date"
                 class="flex-1 px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-200"
               >
             </div>
@@ -120,7 +130,11 @@
           <table class="w-full">
             <thead>
               <tr class="bg-gray-50">
-                <th v-for="header in tableHeaders" :key="header" class="px-6 py-3 text-left text-sm font-semibold text-gray-900">
+                <th
+                  v-for="header in tableHeaders"
+                  :key="header"
+                  class="px-6 py-3 text-left text-sm font-semibold text-gray-900"
+                >
                   <div class="flex items-center gap-2">
                     {{ header }}
                     <ArrowsUpDownIcon class="w-4 h-4 text-gray-400" />
@@ -129,13 +143,29 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="todo in todos" :key="todo.id" class="border-t hover:bg-gray-50">
-                <td class="px-6 py-4 text-sm">{{ todo.number }}</td>
-                <td class="px-6 py-4 text-sm">{{ todo.name }}</td>
-                <td class="px-6 py-4 text-sm">{{ todo.executor }}</td>
-                <td class="px-6 py-4 text-sm">{{ todo.priority }}</td>
-                <td class="px-6 py-4 text-sm">{{ todo.startDate }}</td>
-                <td class="px-6 py-4 text-sm">{{ todo.endDate }}</td>
+              <tr
+                v-for="todo in todos"
+                :key="todo.id"
+                class="border-t hover:bg-gray-50"
+              >
+                <td class="px-6 py-4 text-sm">
+                  {{ todo.number }}
+                </td>
+                <td class="px-6 py-4 text-sm">
+                  {{ todo.name }}
+                </td>
+                <td class="px-6 py-4 text-sm">
+                  {{ todo.executor }}
+                </td>
+                <td class="px-6 py-4 text-sm">
+                  {{ todo.priority }}
+                </td>
+                <td class="px-6 py-4 text-sm">
+                  {{ todo.startDate }}
+                </td>
+                <td class="px-6 py-4 text-sm">
+                  {{ todo.endDate }}
+                </td>
               </tr>
             </tbody>
           </table>
