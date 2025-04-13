@@ -15,7 +15,6 @@
             <div class="timeline-section">
               <div class="grid-container">
                 <GridColumn
-                  v-for="(date, index) in dates"
                   :key="index"
                   :date="date"
                 />
@@ -85,39 +84,39 @@ export default defineComponent({
           name: 'Design Document',
           start: '2024-01-26',
           end: '2024-02-03',
-          color: 'red',
-          progress: 0.2
-        },
-        {
-          id: 2,
-          name: 'Design Document',
-          start: '2024-01-26',
-          end: '2024-02-03',
           color: 'gray'
         },
         {
-          id: 3,
+          id: 2,
           name: 'Development',
           start: '2024-02-10',
           end: '2024-02-17',
           color: 'gray'
         },
         {
-          id: 4,
+          id: 3,
           name: 'Test',
           start: '2024-02-17',
           end: '2024-02-24',
           color: 'gray'
+        },
+        {
+          id: 4,
+          name: 'Release',
+          start: '2024-02-24',
+          end: '2024-03-02',
+          color: 'gray'
         }
       ],
       dependencies: [
+        { from: 1, to: 2 },
         { from: 2, to: 3 },
         { from: 3, to: 4 }
       ]
     }
   },
   created() {
-    this.dates = this.generateDates('2024-01-26', '2024-02-24')
+    this.dates = this.generateDates('2024-01-26', '2024-04-30')
   },
   computed: {
     svgWidth() {
@@ -138,7 +137,7 @@ export default defineComponent({
       
       while (current <= endDate) {
         dates.push(new Date(current))
-        current.setDate(current.getDate() + 7)
+        current.setDate(current.getDate() + 1)
       }
       return dates
     },
@@ -196,7 +195,7 @@ export default defineComponent({
 .timeline-section {
   position: relative;
   margin-left: 280px;
-  min-width: 800px;
+  min-width: 8000px;
 }
 
 .grid-container {

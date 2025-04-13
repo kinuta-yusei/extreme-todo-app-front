@@ -101,9 +101,4 @@ export default {
   stroke: #ccc;
   stroke-width: 1;
 }
-
-.task-bar-red {
-  fill: #dc3545;
-  stroke: #bd2130;
-}
 </style> 

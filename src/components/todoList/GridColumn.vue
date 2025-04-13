@@ -12,9 +12,9 @@ export default {
   name: 'GridColumn',
   data() {
     return {
-      // 今日から7日分の日付を生成
-      dates: Array.from({ length: 7 }, (_, index) => {
-        const date = new Date()
+      // 今日から100日分の日付を生成
+      dates: Array.from({ length: 100 }, (_, index) => {
+        const date = new Date('2024-01-01')
         date.setDate(date.getDate() + index)
         return date
       })
