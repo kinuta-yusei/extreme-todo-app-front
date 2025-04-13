@@ -1,52 +1,54 @@
 <template>
   <nav class="navigation">
-    <div class="menu-icon" @click="handleMenuClick">
+    <div
+      class="menu-icon"
+      @click="handleMenuClick"
+    >
       <MenuIcon class="w-6 h-6 text-gray-600" />
     </div>
-    <h1 class="project-title">{{ projectName }}</h1>
+    <h1 class="project-title">
+      {{ projectName }}
+    </h1>
     <div class="tab-container">
       <router-link
         v-for="tab in tabs"
         :key="tab"
+        v-slot="{ navigate, isActive }"
         :to="{ name: tab }"
         custom
-        v-slot="{ navigate, isActive }"
       >
         <button
-          :class="[
-            'tab-button',
-            isActive ? 'active-tab' : 'inactive-tab'
-          ]"
+          :class="['tab-button', isActive ? 'active-tab' : 'inactive-tab']"
           @click="navigate"
         >
           {{ tab }}
         </button>
       </router-link>
     </div>
-    <div class="right-space"></div>
+    <div class="right-space" />
   </nav>
 </template>
 
 <script setup>
-import { defineProps } from 'vue'
-import { MenuIcon } from 'lucide-vue-next'
+import { defineProps } from "vue";
+import { MenuIcon } from "lucide-vue-next";
 
 defineProps({
   projectName: {
     type: String,
-    required: true
+    required: true,
   },
   tabs: {
     type: Array,
-    required: true
-  }
-})
+    required: true,
+  },
+});
 </script>
 
 <script>
 export default {
-  name: 'PageNavigation'
-}
+  name: "PageNavigation",
+};
 </script>
 
 <style scoped>
