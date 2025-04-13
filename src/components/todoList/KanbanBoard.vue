@@ -16,9 +16,9 @@
       :default-group="selectedGroup"
       :priority-options="priorityOptions"
       :default-priority="selectedPriority"
-      :isStatusNeeded="false"
+      :is-status-needed="false"
       :default-status="todo"
-      :isScheduleNeeded="true"
+      :is-schedule-needed="true"
       @updateExecutor="updateExecutor"
       @updateGroup="updateGroup"
       @updatePriority="updatePriority"
@@ -66,7 +66,9 @@
               >
                 <div class="task-container">
                   <div class="task-header">
-                    <div class="task-title">{{ task.title }}</div>
+                    <div class="task-title">
+                      {{ task.title }}
+                    </div>
                   </div>
                   <div class="task-footer">
                     <span class="task-id">{{ task.id }}</span>
