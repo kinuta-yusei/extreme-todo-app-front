@@ -19,9 +19,9 @@
       :is-status-needed="false"
       :default-status="todo"
       :is-schedule-needed="true"
-      @updateExecutor="updateExecutor"
-      @updateGroup="updateGroup"
-      @updatePriority="updatePriority"
+      @update-executor="updateExecutor"
+      @update-group="updateGroup"
+      @update-priority="updatePriority"
     />
 
     <!-- Kanban Board Container -->
